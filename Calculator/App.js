@@ -1,79 +1,89 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
+import calculator, {initialState} from './calculator';
+const window = Dimensions.get('window');
 export default class App extends Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      input: ''
+    const isPortrait = () => {
+      const dim = Dimensions.get('screen');
+      return dim.height >= dim.width;
     };
-  }
 
-  handleButtonPress = value => {
-    this.setState(prevState => ({
-      input: prevState.input + value,
-    }));
-  };
+    this.state = {
+      ...initialState,
+      orientation: isPortrait() ? 'portrait' : 'landscape',
+    };
 
-  handleDelete = () => {
-    this.setState(prevState => ({
-      input: prevState.input.slice(0, -1)
-    }));
-  };
-
-  calculateResult = () => {
-    try {
-      const result = eval(this.state.input);
+    // Event Listener for orientation changes
+    Dimensions.addEventListener('change', () => {
       this.setState({
-        input: result.toString()
+        orientation: isPortrait() ? 'portrait' : 'landscape',
       });
-    } catch (error) {
-      this.setState({
-        input: 'Error'
-      });
-    }
-  };
-
-  clearInput = () => {
-    this.setState({
-      input: '',
     });
+  }
+  HandleButtonPress = (type, value) => {
+    this.setState(state => calculator(type, value, state));
   };
+
+
 
   render() {
-    const buttons = [
-        'AC', '' , '', '/',
+    const buttonsPortrait = [
+      'AC', '' , '', '/',
       '7', '8', '9', '*',
       '4', '5', '6', '-',
       '1', '2', '3', '+',
       '0', '.', 'DEL', '=',
     ];
 
+    const buttonsLandscape = [
+      '(', ')', 'MC', 'M+', 'M-', 'MR', 'AC', '+/-', '%', '/',
+      '2nd', 'x^2', 'x^3', 'x^y', 'e^x', '10^x', '7', '8', '9', '*',
+      '1/x', '√(2)', '√(3)', '√(y)', 'ln', 'log(10)', '4', '5', '6', '-',
+      'x!', 'sin', 'cos', 'tan', 'e', 'EE', '1', '2', '3', '+',
+      'Rad', 'sinh', 'cosh', 'tanh', 'π', 'Rand', '0', '.', 'DEL', '=',
+    ];
+
+    const numbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+    const basicOperations = ['/', '*', '-', '+', '='];
+
+    const isPortrait = this.state.orientation === 'portrait';
+    const buttons = isPortrait ? buttonsPortrait : buttonsLandscape;
+
     return (
         <View style={styles.container}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.input}>{this.state.input}</Text>
+          <View style={[
+            isPortrait ? styles.inputContainerPortrait : styles.inputContainerLandscape,
+          ]}>
+            <Text style={styles.input}>{this.state.currentValue}</Text>
           </View>
           <View style={styles.buttonsContainer}>
             {buttons.map((button, index) => {
-              const isNumber = !isNaN(parseFloat(button)) || button === '.';
               return (
                   <TouchableOpacity
                       key={index}
                       style={[
-                        styles.button,
-                        isNumber ? styles.numberButton : styles.operationButton
+                        isPortrait ? styles.portraitButton : styles.landscapeButton,
+                        numbers.includes(button) ? styles.numberButton : styles.otherButtons,
+                        basicOperations.includes(button) ? styles.basicOperationButton : null,
                       ]}
                       onPress={() => {
-                        if (button === '=') {
-                          this.calculateResult();
-                        } else if (button === 'AC') {
-                          this.clearInput();
-                        } else if (button === 'DEL') {
-                          this.handleDelete();
-                        } else {
-                          this.handleButtonPress(button);
-                        }
+                          if(numbers.includes(button))
+                            this.HandleButtonPress('number',button);
+                          else if(button === '=')
+                            this.HandleButtonPress(button);
+                          else if(basicOperations.includes(button))
+                            this.HandleButtonPress("operator",button);
+                          else
+                            this.HandleButtonPress(button);
                       }}
                   >
                     <Text style={styles.buttonText}>{button}</Text>
@@ -91,11 +101,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  inputContainer: {
+  inputContainerPortrait: {
     flex: 1,
     backgroundColor: '#dad7cd',
     paddingTop: 80,
     padding: 50,
+    alignItems: 'flex-end',
+  },
+  inputContainerLandscape: {
+    flex: 1,
+    backgroundColor: '#dad7cd',
+    paddingTop: 30,
+    padding: 20,
     alignItems: 'flex-end',
   },
   input: {
@@ -105,7 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  button: {
+  portraitButton: {
     width: '25%',
     height: 100,
     justifyContent: 'center',
@@ -113,11 +130,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
   },
-  numberButton: {
-    backgroundColor: '#588157', // Kolor przycisków z liczbami
+  landscapeButton: {
+    width: '10%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
-  operationButton: {
-    backgroundColor: '#a3b18a', // Kolor przycisków z operacjami
+  numberButton: {
+    backgroundColor: '#457b9d', // Kolor przycisków z liczbami
+  },
+  basicOperationButton: {
+    backgroundColor: '#fca311', // Kolor przycisków z operacjami
+  },
+  otherButtons: {
+    backgroundColor: '#8ecae6', // Kolor przycisków z operacjami
   },
   buttonText: {
     fontSize: 24,
