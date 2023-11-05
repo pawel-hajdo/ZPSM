@@ -9,7 +9,6 @@ import {
 import calculator, {initialState} from './calculator';
 const window = Dimensions.get('window');
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     const isPortrait = () => {
@@ -33,11 +32,9 @@ export default class App extends Component {
     this.setState(state => calculator(type, value, state));
   };
 
-
-
   render() {
     const buttonsPortrait = [
-      'AC', '' , '', '/',
+      'AC', '', '', '/',
       '7', '8', '9', '*',
       '4', '5', '6', '-',
       '1', '2', '3', '+',
@@ -52,46 +49,53 @@ export default class App extends Component {
       'Rad', 'sinh', 'cosh', 'tanh', 'π', 'Rand', '0', '.', 'DEL', '=',
     ];
 
-    const numbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+    const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
     const basicOperations = ['/', '*', '-', '+', '='];
 
     const isPortrait = this.state.orientation === 'portrait';
     const buttons = isPortrait ? buttonsPortrait : buttonsLandscape;
 
     return (
-        <View style={styles.container}>
-          <View style={[
-            isPortrait ? styles.inputContainerPortrait : styles.inputContainerLandscape,
+      <View style={styles.container}>
+        <View
+          style={[
+            isPortrait
+              ? styles.inputContainerPortrait
+              : styles.inputContainerLandscape,
           ]}>
-            <Text style={styles.input}>{this.state.currentValue}</Text>
-          </View>
-          <View style={styles.buttonsContainer}>
-            {buttons.map((button, index) => {
-              return (
-                  <TouchableOpacity
-                      key={index}
-                      style={[
-                        isPortrait ? styles.portraitButton : styles.landscapeButton,
-                        numbers.includes(button) ? styles.numberButton : styles.otherButtons,
-                        basicOperations.includes(button) ? styles.basicOperationButton : null,
-                      ]}
-                      onPress={() => {
-                          if(numbers.includes(button))
-                            this.HandleButtonPress('number',button);
-                          else if(button === '=')
-                            this.HandleButtonPress(button);
-                          else if(basicOperations.includes(button))
-                            this.HandleButtonPress("operator",button);
-                          else
-                            this.HandleButtonPress(button);
-                      }}
-                  >
-                    <Text style={styles.buttonText}>{button}</Text>
-                  </TouchableOpacity>
-              );
-            })}
-          </View>
+          <Text style={styles.input}>{this.state.currentValue}</Text>
         </View>
+        <View style={styles.buttonsContainer}>
+          {buttons.map((button, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  isPortrait ? styles.portraitButton : styles.landscapeButton,
+                  numbers.includes(button)
+                    ? styles.numberButton
+                    : styles.otherButtons,
+                  basicOperations.includes(button)
+                    ? styles.basicOperationButton
+                    : null,
+                ]}
+                onPress={() => {
+                  if (numbers.includes(button)) {
+                    this.HandleButtonPress('number', button);
+                  } else if (button === '=') {
+                    this.HandleButtonPress(button);
+                  } else if (basicOperations.includes(button)) {
+                    this.HandleButtonPress('operator', button);
+                  } else {
+                    this.HandleButtonPress(button);
+                  }
+                }}>
+                <Text style={styles.buttonText}>{button}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
     );
   }
 }
