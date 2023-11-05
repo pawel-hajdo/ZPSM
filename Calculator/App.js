@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import calculator, {initialState} from './calculator';
-const window = Dimensions.get('window');
+import CalcButton from './components/CalcButton';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -68,9 +68,10 @@ export default class App extends Component {
         <View style={styles.buttonsContainer}>
           {buttons.map((button, index) => {
             return (
-              <TouchableOpacity
+              <CalcButton
                 key={index}
-                style={[
+                value={button}
+                styleButton={[
                   isPortrait ? styles.portraitButton : styles.landscapeButton,
                   numbers.includes(button)
                     ? styles.numberButton
@@ -79,6 +80,7 @@ export default class App extends Component {
                     ? styles.basicOperationButton
                     : null,
                 ]}
+                styleText={[styles.buttonText]}
                 onPress={() => {
                   if (numbers.includes(button)) {
                     this.HandleButtonPress('number', button);
@@ -90,8 +92,7 @@ export default class App extends Component {
                     this.HandleButtonPress(button);
                   }
                 }}>
-                <Text style={styles.buttonText}>{button}</Text>
-              </TouchableOpacity>
+              </CalcButton>
             );
           })}
         </View>
