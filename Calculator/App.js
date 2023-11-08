@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SplashScreen from 'react-native-splash-screen'
 import {
   TouchableOpacity,
   StyleSheet,
@@ -9,7 +10,7 @@ import {
 import calculator, {initialState} from './calculator';
 import CalcButton from './components/CalcButton';
 export default class App extends Component {
-  constructor(props) {
+   constructor(props) {
     super(props);
     const isPortrait = () => {
       const dim = Dimensions.get('screen');
@@ -27,6 +28,11 @@ export default class App extends Component {
         orientation: isPortrait() ? 'portrait' : 'landscape',
       });
     });
+  }
+  componentDidMount() {
+    // do stuff while splash screen is shown
+    // After having done stuff (such as async tasks) hide the splash screen
+    SplashScreen.hide();
   }
   HandleButtonPress = (type, value) => {
     this.setState(state => calculator(type, value, state));
