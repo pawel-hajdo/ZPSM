@@ -10,7 +10,7 @@ export const handleNumber = (value, state) => {
   }
 
   return {
-    currentValue: `${state.currentValue}${value}`,
+    currentValue: `${state.currentValue}${value}`
   };
 };
 

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import calculator, {initialState} from './calculator';
 import CalcButton from './components/CalcButton';
+import {evaluate} from 'mathjs';
 export default class App extends Component {
    constructor(props) {
     super(props);
@@ -20,6 +21,7 @@ export default class App extends Component {
     this.state = {
       ...initialState,
       orientation: isPortrait() ? 'portrait' : 'landscape',
+      expression: '',
     };
 
     // Event Listener for orientation changes
@@ -34,9 +36,58 @@ export default class App extends Component {
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
   }
-  HandleButtonPress = (type, value) => {
-    this.setState(state => calculator(type, value, state));
+  HandleButtonPress = (value) => {
+
+    if(value === '='){
+
+    } else if (value === 'AC'){
+
+    } else {
+
+    }
+
+    switch (value) {
+      case '=':
+        this.CalculateExpression();
+        break;
+      case 'AC':
+        this.ClearExpression();
+        break;
+      case 'DEL':
+        this.DeleteLast();
+        break;
+      default:
+        this.setState(prevState => ({
+          expression: `${prevState.expression}${value}`
+        }));
+        break;
+    }
+
   };
+
+   ClearExpression() {
+    this.setState(prevState => ({
+      expression: ''
+    }));
+   }
+
+   DeleteLast() {
+     this.setState(prevState => ({
+       expression: prevState.expression.slice(0, -1)
+      }));
+    }
+   CalculateExpression(){
+     try {
+       const result = evaluate(this.state.expression);
+       this.setState({
+         expression: result.toString(),
+       });
+     } catch (error) {
+       // Handle the error, for example, if the expression is invalid
+       console.error('Error evaluating expression:', error);
+       // You may want to set the expression to an error message or handle it in a different way
+     }
+   }
 
   render() {
     const buttonsPortrait = [
@@ -69,7 +120,7 @@ export default class App extends Component {
               ? styles.inputContainerPortrait
               : styles.inputContainerLandscape,
           ]}>
-          <Text style={styles.input}>{this.state.currentValue}</Text>
+          <Text style={styles.input}>{this.state.expression}</Text>
         </View>
         <View style={styles.buttonsContainer}>
           {buttons.map((button, index) => {
@@ -88,15 +139,7 @@ export default class App extends Component {
                 ]}
                 styleText={[styles.buttonText]}
                 onPress={() => {
-                  if (numbers.includes(button)) {
-                    this.HandleButtonPress('number', button);
-                  } else if (button === '=') {
-                    this.HandleButtonPress(button);
-                  } else if (basicOperations.includes(button)) {
-                    this.HandleButtonPress('operator', button);
-                  } else {
-                    this.HandleButtonPress(button);
-                  }
+                  this.HandleButtonPress(button);
                 }}>
               </CalcButton>
             );
