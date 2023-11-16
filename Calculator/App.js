@@ -7,9 +7,8 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import calculator, {initialState} from './calculator';
 import CalcButton from './components/CalcButton';
-import {evaluate} from 'mathjs';
+import { evaluate, expression } from "mathjs";
 export default class App extends Component {
    constructor(props) {
     super(props);
@@ -19,9 +18,8 @@ export default class App extends Component {
     };
 
     this.state = {
-      ...initialState,
       orientation: isPortrait() ? 'portrait' : 'landscape',
-      expression: '',
+      expression: '0',
     };
 
     // Event Listener for orientation changes
@@ -38,15 +36,81 @@ export default class App extends Component {
   }
   HandleButtonPress = (value) => {
 
-    if(value === '='){
-
-    } else if (value === 'AC'){
-
-    } else {
-
-    }
-
     switch (value) {
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        this.setState((prevState) => {
+          const lastChar = prevState.expression.slice(-1);
+          const newExpression = lastChar.match(/[+\-/*]/) ? prevState.expression.slice(0, -1) + value : prevState.expression + value;
+
+          return {
+            expression: newExpression,
+          };
+        });
+        break;
+
+      case '+/-':
+        this.setState((prevState) => {
+          let newExpression = '';
+
+          if (prevState.expression.startsWith('-')) {
+            newExpression = prevState.expression.slice(1);
+          } else {
+            newExpression = `-(${prevState.expression})`;
+          }
+
+          return {
+            expression: newExpression,
+          };
+        });
+        break;
+      case '1/x':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? '1/' : prevState.expression.concat('1/')
+        }));
+        break;
+      case '%':
+        this.setState(prevState => ({
+          expression: prevState.expression.concat('/100')
+        }));
+          break;
+      case 'x^2':
+        this.setState(prevState => ({
+          expression: prevState.expression.concat('^2')
+        }));
+        break;
+      case 'x^3':
+        this.setState(prevState => ({
+          expression: prevState.expression.concat('^3')
+        }));
+        break;
+      case 'x^y':
+        this.setState(prevState => ({
+          expression: prevState.expression.concat('^')
+        }));
+        break;
+      case '10^x':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? '10^' : prevState.expression.concat('10^')
+        }));
+        break;
+      case 'x!':
+        this.setState(prevState => ({
+          expression: prevState.expression.concat('!')
+        }));
+        break;
+      case '√':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? 'sqrt(' : prevState.expression.concat('sqrt(')
+        }));
+        break;
+      case '∛':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? 'nthRoot(3,' : prevState.expression.concat('nthRoot(3,')
+        }));
+        break;
       case '=':
         this.CalculateExpression();
         break;
@@ -56,9 +120,33 @@ export default class App extends Component {
       case 'DEL':
         this.DeleteLast();
         break;
+      case 'sin':
+      case 'cos':
+      case 'tan':
+      case 'sinh':
+      case 'tanh':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? value+'(' : prevState.expression.concat(value+'(')
+        }));
+        break;
+      case 'e':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? Math.E.toString() : prevState.expression.concat(Math.E)
+        }));
+        break;
+      case 'π':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? Math.PI.toString() : prevState.expression.concat(Math.PI)
+        }));
+        break;
+      case 'Rand':
+        this.setState(prevState => ({
+          expression: prevState.expression === '0' ? Math.random().toString() : prevState.expression.concat(Math.random())
+        }));
+        break;
       default:
         this.setState(prevState => ({
-          expression: `${prevState.expression}${value}`
+          expression: prevState.expression === '0' ? value : `${prevState.expression}${value}`
         }));
         break;
     }
@@ -67,7 +155,7 @@ export default class App extends Component {
 
    ClearExpression() {
     this.setState(prevState => ({
-      expression: ''
+      expression: '0'
     }));
    }
 
@@ -78,14 +166,12 @@ export default class App extends Component {
     }
    CalculateExpression(){
      try {
-       const result = evaluate(this.state.expression);
+       const result = evaluate(this.state.expression).toPrecision(8);
        this.setState({
          expression: result.toString(),
        });
      } catch (error) {
-       // Handle the error, for example, if the expression is invalid
        console.error('Error evaluating expression:', error);
-       // You may want to set the expression to an error message or handle it in a different way
      }
    }
 
@@ -101,7 +187,7 @@ export default class App extends Component {
     const buttonsLandscape = [
       '(', ')', 'MC', 'M+', 'M-', 'MR', 'AC', '+/-', '%', '/',
       '2nd', 'x^2', 'x^3', 'x^y', 'e^x', '10^x', '7', '8', '9', '*',
-      '1/x', '√(2)', '√(3)', '√(y)', 'ln', 'log(10)', '4', '5', '6', '-',
+      '1/x', '√', '∛', '√(y)', 'ln', 'log(10)', '4', '5', '6', '-',
       'x!', 'sin', 'cos', 'tan', 'e', 'EE', '1', '2', '3', '+',
       'Rad', 'sinh', 'cosh', 'tanh', 'π', 'Rand', '0', '.', 'DEL', '=',
     ];
