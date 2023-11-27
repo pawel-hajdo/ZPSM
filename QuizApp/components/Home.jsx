@@ -1,7 +1,8 @@
 import React from "react";
-import {Button, ScrollView, StyleSheet, Text, View} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import Header from "./Header";
 import QuestionCardView from "./QuestionCardView";
+import CustomButton from "./CustomButton";
 
 const Tests = [
     {
@@ -46,7 +47,7 @@ function Home(){
             </ScrollView>
             <View style={styles.bottomContent}>
                 <Text style={{fontSize: 16}}>Get to know your ranking result</Text>
-                <Button title="Check!"/>
+                <CustomButton title="Check!"/>
             </View>
         </View>
     );
