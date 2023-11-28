@@ -52,7 +52,6 @@ const Home = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Header text = "Home Page"/>
             <ScrollView style={styles.scrollView}>
                 {Tests.map((test) =>
                     <TouchableOpacity
@@ -81,7 +80,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     scrollView:{
-        height: '80%'
+        height: '85%',
+        marginBottom: "3%"
     },
     bottomContent: {
         padding: 16,

@@ -9,7 +9,6 @@ const TestPage = ({route, navigation}) => {
 
     return (
         <View>
-            <Header title = {testTitle}/>
             <QuestionCardView title = {testTitle} description = {testDesc}/>
         </View>
 
