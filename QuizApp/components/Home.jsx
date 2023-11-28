@@ -52,6 +52,13 @@ const Home = ({navigation}) => {
     const handleCheckResults = () => {
         navigation.navigate("ResultsScreen");
     };
+    const handleNavigateToTestPage = (testId, testTitle, testDesc) => {
+        navigation.navigate("TestPage", {
+            testId: testId,
+            testTitle: testTitle,
+            testDesc: testDesc
+        });
+    };
 
     return (
         <View style={styles.container}>
@@ -59,11 +66,7 @@ const Home = ({navigation}) => {
                 {Tests.map((test) =>
                     <TouchableOpacity
                         key = {test.id}
-                        onPress={() => navigation.navigate("TestPage",{
-                            testId: test.id,
-                            testTitle: test.title,
-                            testDesc: test.description
-                        })}
+                        onPress={() => handleNavigateToTestPage(test.id, test.title, test.description)}
                     >
                         <QuestionCardView title = {test.title} description = {test.description}/>
                     </TouchableOpacity>
