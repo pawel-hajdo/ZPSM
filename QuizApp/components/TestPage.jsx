@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./Header";
 import {View} from "react-native";
 import QuestionCardView from "./QuestionCardView";
 

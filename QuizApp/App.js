@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {StyleSheet} from "react-native";
 import TestPage from "./components/TestPage";
+import ResultsScreen from "./components/ResultsScreen";
 
 const Stack = createNativeStackNavigator();
 function App (){
@@ -21,6 +22,7 @@ function App (){
                               options = {
                                 ({route}) => ({title: route.params.testTitle})
                                   }/>
+                <Stack.Screen name="ResultsScreen" component={ResultsScreen} options={{title: "Results"}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

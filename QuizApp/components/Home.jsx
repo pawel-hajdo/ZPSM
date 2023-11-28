@@ -1,6 +1,5 @@
 import React from "react";
 import {ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View} from "react-native";
-import Header from "./Header";
 import QuestionCardView from "./QuestionCardView";
 import CustomButton from "./CustomButton";
 import {useNavigation} from "@react-navigation/native";
@@ -50,6 +49,10 @@ const Tests = [
 
 const Home = ({navigation}) => {
 
+    const handleCheckResults = () => {
+        navigation.navigate("ResultsScreen");
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
@@ -68,7 +71,7 @@ const Home = ({navigation}) => {
             </ScrollView>
             <View style={styles.bottomContent}>
                 <Text style={{fontSize: 16}}>Get to know your ranking result</Text>
-                <CustomButton title="Check!"/>
+                <CustomButton title="Check!" onPress={handleCheckResults}/>
             </View>
         </View>
     );
