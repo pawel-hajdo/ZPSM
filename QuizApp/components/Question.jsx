@@ -32,7 +32,7 @@ const Question = (params) => {
             <Text style={styles.questionDescription}>{params.questionDescription}</Text>
             <View style={styles.optionsContainer}>
                 {params.options.map((option, index) => (
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity key = {index} style={styles.button}>
                         <Text style={styles.buttonText}>{option}</Text>
                     </TouchableOpacity>
                 ))}

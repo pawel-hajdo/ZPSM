@@ -37,12 +37,6 @@ function App() {
                         }}
                     />
                 ))}
-                <Drawer.Screen name="TestPage" component={TestPage}
-                               options={({
-                                        route}) => ({title: route.params?.testTitle,
-                                        drawerStyle: { display: 'none' }
-                                   })
-                               }/>
             </Drawer.Navigator>
         </NavigationContainer>
     );
