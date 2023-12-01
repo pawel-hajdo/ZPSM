@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import * as Progress from "react-native-progress";
+import CustomButton from "../shared/CustomButton";
 
 const Question = (params) => {
 
     const [progress, setProgress] = useState(0);
     const [timeLeft, setTimeLeft] = useState(30);
+    const [selectedOption, setSelectedOption] = useState(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -14,12 +16,31 @@ const Question = (params) => {
 
             if (progress >= 1 || timeLeft <= 0) {
                 clearInterval(interval);
-                //dodać przejście do następnego pytania?
+                params.handleNextQuestion();
             }
         }, 1000);
 
         return () => clearInterval(interval);
     }, [progress, timeLeft]);
+
+    const handleOptionPress = (option) => {
+        if (option === params.answer) {
+            console.log("poprawna odpowiedź");
+            setSelectedOption({ [option]: "correct" });
+        } else {
+            console.log("zła odpowiedź");
+            setSelectedOption({ [option]: "incorrect" });
+        }
+    };
+
+    const getButtonStyle = (option) => {
+        if (selectedOption && selectedOption[option]) {
+            return selectedOption[option] === "correct"
+                ? styles.correctButton
+                : styles.incorrectButton;
+        }
+        return styles.button;
+    };
 
     return (
         <View style={styles.container}>
@@ -32,11 +53,12 @@ const Question = (params) => {
             <Text style={styles.questionDescription}>{params.questionDescription}</Text>
             <View style={styles.optionsContainer}>
                 {params.options.map((option, index) => (
-                    <TouchableOpacity key = {index} style={styles.button}>
+                    <TouchableOpacity key = {index} style={getButtonStyle(option)} onPress={()=>handleOptionPress(option)} disabled={selectedOption !== null}>
                         <Text style={styles.buttonText}>{option}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
+            <CustomButton title="Next Question" onPress={params.handleNextQuestion} customStyles={{width: "300", margin: 8, backgroundColor: "#f4511e"}}/>
         </View>
     )
 }
@@ -71,7 +93,27 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
     },
     button: {
-        backgroundColor: "#f4511e",
+        backgroundColor: "orange",
+        borderColor: "orange",
+        borderWidth: 2,
+        padding: 10,
+        borderRadius: 5,
+        width: "45%",
+        marginTop: 10,
+    },
+    correctButton: {
+        backgroundColor: "green",
+        borderColor: "green",
+        borderWidth: 2,
+        padding: 10,
+        borderRadius: 5,
+        width: "45%",
+        marginTop: 10,
+    },
+    incorrectButton: {
+        backgroundColor: "red",
+        borderColor: "red",
+        borderWidth: 2,
         padding: 10,
         borderRadius: 5,
         width: "45%",
