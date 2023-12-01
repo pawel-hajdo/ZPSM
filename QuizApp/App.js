@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
 import React from "react";
-import Home from "./components/Home";
+import Home from "./components/screens/Home";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import TestPage from "./components/TestPage";
-import ResultsScreen from "./components/ResultsScreen";
+import TestPage from "./components/screens/TestPage";
+import ResultsScreen from "./components/screens/ResultsScreen";
+import testsData from "./data/TestsData";
 
 const Drawer = createDrawerNavigator();
+const TestsData = testsData;
 function App() {
     return (
         <NavigationContainer>
@@ -25,7 +27,7 @@ function App() {
                     component={ResultsScreen}
                     options={{ title: "Results" }}
                 />
-                {Tests.map((test) => (
+                {TestsData.map((test) => (
                     <Drawer.Screen
                         key={test.id}
                         name={test.title}
@@ -41,48 +43,5 @@ function App() {
         </NavigationContainer>
     );
 }
-
-const Tests = [
-    {
-        id: 1,
-        title: "Test1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 2,
-        title: "Test2",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 3,
-        title: "Test3",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 4,
-        title: "Test4",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 5,
-        title: "Test5",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 6,
-        title: "Test6",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 7,
-        title: "Test7",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 8,
-        title: "Test8",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-]
 
 export default App;

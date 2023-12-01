@@ -1,21 +1,15 @@
 import React from "react";
 import {FlatList, StyleSheet, Text, View} from "react-native";
+import results from "../../data/Results";
 
-const resultsData = [
-    {id: 1, nick: "player1", points: "18/20", type: "test1", date: "21-11-2018"},
-    {id: 2, nick: "player2", points: "15/20", type: "test1", date: "20-11-2018"},
-    {id: 3, nick: "player3", points: "13/20", type: "test2", date: "22-11-2018"},
-    {id: 4, nick: "player4", points: "20/20", type: "test3", date: "24-11-2018"},
-    {id: 5, nick: "player5", points: "11/20", type: "test2", date: "25-11-2018"},
-    {id: 6, nick: "player6", points: "18/20", type: "test1", date: "26-11-2018"},
-]
+const resultsData = results;
 const ResultsScreen = () => {
 
     const renderItem = ({ item }) => {
         return (
             <View key={item.id.toString()} style={styles.row}>
                 <Text style={styles.cell}>{item.nick}</Text>
-                <Text style={styles.cell}>{item.points}</Text>
+                <Text style={styles.cell}>{item.score}/{item.total}</Text>
                 <Text style={styles.cell}>{item.type}</Text>
                 <Text style={styles.cell}>{item.date}</Text>
             </View>
