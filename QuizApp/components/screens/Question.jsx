@@ -9,6 +9,7 @@ const Question = (params) => {
     const [timeLeft, setTimeLeft] = useState(30);
     const [selectedOption, setSelectedOption] = useState(null);
 
+
     useEffect(() => {
         const interval = setInterval(() => {
             setProgress((prevProgress) => prevProgress + 0.033);
@@ -16,7 +17,7 @@ const Question = (params) => {
 
             if (progress >= 1 || timeLeft <= 0) {
                 clearInterval(interval);
-                params.handleNextQuestion();
+                //params.handleNextQuestion();
             }
         }, 1000);
 
@@ -25,10 +26,11 @@ const Question = (params) => {
 
     const handleOptionPress = (option) => {
         if (option === params.answer) {
-            console.log("poprawna odpowiedź");
+            console.log("correct answer");
             setSelectedOption({ [option]: "correct" });
+            params.onUpdatePoints((prevPoints) => prevPoints + 1);
         } else {
-            console.log("zła odpowiedź");
+            console.log("incorrect answer");
             setSelectedOption({ [option]: "incorrect" });
         }
     };

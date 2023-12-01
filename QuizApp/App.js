@@ -6,9 +6,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import TestPage from "./components/screens/TestPage";
 import ResultsScreen from "./components/screens/ResultsScreen";
 import testsData from "./data/TestsData";
+import TestEndScreen from "./components/screens/TestEndScreen";
 
 const Drawer = createDrawerNavigator();
 const TestsData = testsData;
+
 function App() {
     return (
         <NavigationContainer>
@@ -39,6 +41,12 @@ function App() {
                         }}
                     />
                 ))}
+                <Drawer.Screen //temporary solution
+                    name="TestEndScreen"
+                    component={TestEndScreen}
+                    options={{ title: "Test End" }}
+                    initialParams={{points: 0}}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     );
