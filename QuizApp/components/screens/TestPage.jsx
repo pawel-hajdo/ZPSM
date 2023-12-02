@@ -15,7 +15,7 @@ const TestPage = ({route, navigation}) => {
         if (currentQuestionIndex < selectedTest.questions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         } else {
-            navigation.navigate("TestEndScreen", {points: points});
+            navigation.replace("TestEndScreen", {points: points});
             console.log(points)
         }
     };

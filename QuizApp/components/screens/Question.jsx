@@ -12,12 +12,14 @@ const Question = (params) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setProgress((prevProgress) => prevProgress + 0.033);
-            setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+            if (timeLeft > 0) {
+                setProgress((prevProgress) => prevProgress + 0.033);
+                setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+            }
 
             if (progress >= 1 || timeLeft <= 0) {
                 clearInterval(interval);
-                //params.handleNextQuestion();
+                params.handleNextQuestion();
             }
         }, 1000);
 
