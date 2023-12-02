@@ -1,167 +1,539 @@
 const testsData = [
     {
         id: 0,
-        title: "Test1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus.",
+        title: "General Knowledge",
+        description: "Test your general knowledge across various topics.",
         questions: [
             {
                 id: 0,
-                question: "This is some example of a long question to fill the content1?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Which country is known as the 'Land of the Rising Sun'?",
+                options: ["China", "South Korea", "Japan", "Vietnam"],
+                answer: "Japan",
             },
             {
                 id: 1,
-                question: "This is some example of a long question to fill the content2?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "What is the capital of Japan?",
+                options: ["Seoul", "Beijing", "Tokyo", "Bangkok"],
+                answer: "Tokyo",
             },
             {
                 id: 2,
-                question: "This is some example of a long question to fill the content3?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Who wrote 'The Great Gatsby'?",
+                options: ["F. Scott Fitzgerald", "Ernest Hemingway", "Jane Austen", "Charles Dickens"],
+                answer: "F. Scott Fitzgerald",
             },
             {
                 id: 3,
-                question: "This is some example of a long question to fill the content4?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Which planet is known as the 'Red Planet'?",
+                options: ["Mars", "Venus", "Jupiter", "Mercury"],
+                answer: "Mars",
             },
             {
                 id: 4,
-                question: "This is some example of a long question to fill the content5?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "In which year did the Titanic sink?",
+                options: ["1908", "1912", "1920", "1931"],
+                answer: "1912",
             },
             {
                 id: 5,
-                question: "This is some example of a long question to fill the content6?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Who painted the Mona Lisa?",
+                options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+                answer: "Leonardo da Vinci",
             },
             {
                 id: 6,
-                question: "This is some example of a long question to fill the content7?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "What is the currency of Brazil?",
+                options: ["Euro", "Peso", "Real", "Yen"],
+                answer: "Real",
             },
             {
                 id: 7,
-                question: "This is some example of a long question to fill the content8?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Which ocean is the largest?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Southern Ocean", "Pacific Ocean"],
+                answer: "Pacific Ocean",
             },
             {
                 id: 8,
-                question: "This is some example of a long question to fill the content9?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "What is the world's largest continent?",
+                options: ["Europe", "Africa", "Asia", "North America"],
+                answer: "Asia",
             },
             {
                 id: 9,
-                question: "This is some example of a long question to fill the content10?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer B'
+                question: "Who is the author of 'Harry Potter' series?",
+                options: ["J.K. Rowling", "George R.R. Martin", "Stephen King", "J.R.R. Tolkien"],
+                answer: "J.K. Rowling",
             },
-        ]
+        ],
     },
     {
         id: 1,
-        title: "Test2",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus.",
+        title: "World History",
+        description: "Test your knowledge of historical events around the world.",
         questions: [
             {
                 id: 0,
-                question: "This is some example of a long question to fill the content1?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "What event marked the beginning of World War I?",
+                options: ["Assassination of Archduke Franz Ferdinand", "Attack on Pearl Harbor", "Treaty of Versailles", "Battle of Stalingrad"],
+                answer: "Assassination of Archduke Franz Ferdinand",
             },
             {
                 id: 1,
-                question: "This is some example of a long question to fill the content2?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "In which year did Christopher Columbus first arrive in the Americas?",
+                options: ["1492", "1501", "1510", "1525"],
+                answer: "1492",
             },
             {
                 id: 2,
-                question: "This is some example of a long question to fill the content3?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Who was the first emperor of China?",
+                options: ["Emperor Qin Shi Huang", "Emperor Han Wudi", "Emperor Tang Taizong", "Emperor Song Taizu"],
+                answer: "Emperor Qin Shi Huang",
             },
             {
                 id: 3,
-                question: "This is some example of a long question to fill the content4?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Which ancient civilization built the pyramids in Egypt?",
+                options: ["Greek", "Roman", "Egyptian", "Mesopotamian"],
+                answer: "Egyptian",
             },
             {
                 id: 4,
-                question: "This is some example of a long question to fill the content5?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Who was the leader of the Soviet Union during World War II?",
+                options: ["Joseph Stalin", "Vladimir Lenin", "Nikita Khrushchev", "Leon Trotsky"],
+                answer: "Joseph Stalin",
             },
             {
                 id: 5,
-                question: "This is some example of a long question to fill the content6?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "In which year did the Berlin Wall fall?",
+                options: ["1985", "1989", "1991", "1995"],
+                answer: "1989",
             },
             {
                 id: 6,
-                question: "This is some example of a long question to fill the content7?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Who was the first President of the United States?",
+                options: ["Thomas Jefferson", "George Washington", "John Adams", "Abraham Lincoln"],
+                answer: "George Washington",
             },
             {
                 id: 7,
-                question: "This is some example of a long question to fill the content8?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Which ancient city was known for the Hanging Gardens?",
+                options: ["Rome", "Athens", "Babylon", "Jerusalem"],
+                answer: "Babylon",
             },
             {
                 id: 8,
-                question: "This is some example of a long question to fill the content9?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "Who was the leader of the Mongol Empire in the 13th century?",
+                options: ["Genghis Khan", "Kublai Khan", "Attila the Hun", "Timur"],
+                answer: "Genghis Khan",
             },
             {
                 id: 9,
-                question: "This is some example of a long question to fill the content10?",
-                options: ['Answer A', 'Answer B', 'Answer C', 'Answer D'],
-                answer: 'Answer C'
+                question: "In which year did the French Revolution begin?",
+                options: ["1765", "1789", "1804", "1832"],
+                answer: "1789",
             },
-        ]
+        ],
     },
     {
         id: 2,
-        title: "Test3",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Science Trivia",
+        description: "Test your knowledge of scientific facts.",
+        questions: [
+            {
+                id: 0,
+                question: "What is the chemical symbol for gold?",
+                options: ["Au", "Ag", "Fe", "Cu"],
+                answer: "Au",
+            },
+            {
+                id: 1,
+                question: "What is the chemical symbol for water?",
+                options: ["H2O", "CO2", "O2", "NaCl"],
+                answer: "H2O",
+            },
+            {
+                id: 2,
+                question: "Who developed the theory of relativity?",
+                options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Niels Bohr"],
+                answer: "Albert Einstein",
+            },
+            {
+                id: 3,
+                question: "What is the largest planet in our solar system?",
+                options: ["Earth", "Jupiter", "Mars", "Saturn"],
+                answer: "Jupiter",
+            },
+            {
+                id: 4,
+                question: "Which gas do plants absorb from the atmosphere?",
+                options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+                answer: "Carbon Dioxide",
+            },
+            {
+                id: 5,
+                question: "What is the powerhouse of the cell?",
+                options: ["Nucleus", "Mitochondria", "Endoplasmic Reticulum", "Golgi Apparatus"],
+                answer: "Mitochondria",
+            },
+            {
+                id: 6,
+                question: "Which element has the symbol 'O' on the periodic table?",
+                options: ["Osmium", "Oxygen", "Oganesson", "Oxymoron"],
+                answer: "Oxygen",
+            },
+            {
+                id: 7,
+                question: "What is the speed of light?",
+                options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
+                answer: "300,000 km/s",
+            },
+            {
+                id: 8,
+                question: "What is the main component of Earth's atmosphere?",
+                options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"],
+                answer: "Nitrogen",
+            },
+            {
+                id: 9,
+                question: "Who is known as the father of modern physics?",
+                options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Niels Bohr"],
+                answer: "Albert Einstein",
+            },
+        ],
     },
     {
         id: 3,
-        title: "Test4",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Geography Quiz",
+        description: "Test your knowledge of world geography.",
+        questions: [
+            {
+                id: 0,
+                question: "Which continent is known as the 'Land Down Under'?",
+                options: ["North America", "Europe", "Australia", "Asia"],
+                answer: "Australia",
+            },
+            {
+                id: 1,
+                question: "What is the capital city of Canada?",
+                options: ["Ottawa", "Toronto", "Vancouver", "Montreal"],
+                answer: "Ottawa",
+            },
+            {
+                id: 2,
+                question: "In which mountain range is Mount Everest located?",
+                options: ["Rocky Mountains", "Andes", "Himalayas", "Alps"],
+                answer: "Himalayas",
+            },
+            {
+                id: 3,
+                question: "Through which continent does the equator pass?",
+                options: ["North America", "Africa", "Asia", "South America"],
+                answer: "Africa",
+            },
+            {
+                id: 4,
+                question: "Which river is the longest in the world?",
+                options: ["Nile", "Amazon", "Yangtze", "Mississippi"],
+                answer: "Nile",
+            },
+            {
+                id: 5,
+                question: "What is the largest desert in the world?",
+                options: ["Sahara Desert", "Arabian Desert", "Gobi Desert", "Antarctica"],
+                answer: "Antarctica",
+            },
+            {
+                id: 6,
+                question: "Which country is known as the 'Land of the Rising Sun'?",
+                options: ["China", "South Korea", "Japan", "Vietnam"],
+                answer: "Japan",
+            },
+            {
+                id: 7,
+                question: "In which ocean is the Bermuda Triangle located?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
+                answer: "Atlantic Ocean",
+            },
+            {
+                id: 8,
+                question: "What is the capital city of Brazil?",
+                options: ["Sao Paulo", "Rio de Janeiro", "Brasilia", "Salvador"],
+                answer: "Brasilia",
+            },
+            {
+                id: 9,
+                question: "Which country is the smallest in the world by land area?",
+                options: ["Monaco", "San Marino", "Nauru", "Vatican City"],
+                answer: "Vatican City",
+            },
+        ],
     },
     {
         id: 4,
-        title: "Test5",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Movie Trivia",
+        description: "Test your knowledge of movies and cinema.",
+        questions: [
+            {
+                id: 0,
+                question: "Who directed the movie 'Inception'?",
+                options: ["Christopher Nolan", "Steven Spielberg", "Quentin Tarantino", "James Cameron"],
+                answer: "Christopher Nolan",
+            },
+            {
+                id: 1,
+                question: "Which actor played the character Jack Dawson in the movie 'Titanic'?",
+                options: ["Leonardo DiCaprio", "Brad Pitt", "Tom Hanks", "Johnny Depp"],
+                answer: "Leonardo DiCaprio",
+            },
+            {
+                id: 2,
+                question: "In which year was the first 'Star Wars' movie released?",
+                options: ["1977", "1980", "1983", "1973"],
+                answer: "1977",
+            },
+            {
+                id: 3,
+                question: "Who won the Academy Award for Best Actor in 2020?",
+                options: ["Joaquin Phoenix", "Brad Pitt", "Leonardo DiCaprio", "Anthony Hopkins"],
+                answer: "Anthony Hopkins",
+            },
+            {
+                id: 4,
+                question: "Which animated movie features a character named Simba?",
+                options: ["Frozen", "The Lion King", "Moana", "Zootopia"],
+                answer: "The Lion King",
+            },
+            {
+                id: 5,
+                question: "Who directed the 'Lord of the Rings' trilogy?",
+                options: ["Peter Jackson", "George Lucas", "Steven Spielberg", "James Cameron"],
+                answer: "Peter Jackson",
+            },
+            {
+                id: 6,
+                question: "Which actress won the Academy Award for Best Actress in 2019?",
+                options: ["Emma Stone", "Sandra Bullock", "Meryl Streep", "Renee Zellweger"],
+                answer: "Renee Zellweger",
+            },
+            {
+                id: 7,
+                question: "What is the highest-grossing movie of all time?",
+                options: ["Avengers: Endgame", "Titanic", "Avatar", "Star Wars: The Force Awakens"],
+                answer: "Avengers: Endgame",
+            },
+            {
+                id: 8,
+                question: "Which movie features a character named Hannibal Lecter?",
+                options: ["The Silence of the Lambs", "Se7en", "The Shining", "Psycho"],
+                answer: "The Silence of the Lambs",
+            },
+            {
+                id: 9,
+                question: "In 'The Matrix' trilogy, who plays the role of Neo?",
+                options: ["Keanu Reeves", "Tom Cruise", "Matt Damon", "Will Smith"],
+                answer: "Keanu Reeves",
+            },
+        ],
     },
     {
         id: 5,
-        title: "Test6",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Music Knowledge",
+        description: "Test your knowledge of music and artists.",
+        questions: [
+            {
+                id: 0,
+                question: "Who is known as the 'King of Pop'?",
+                options: ["Elvis Presley", "Michael Jackson", "Prince", "Madonna"],
+                answer: "Michael Jackson",
+            },
+            {
+                id: 1,
+                question: "Which rock band released the album 'The Dark Side of the Moon'?",
+                options: ["The Beatles", "Led Zeppelin", "Pink Floyd", "Queen"],
+                answer: "Pink Floyd",
+            },
+            {
+                id: 2,
+                question: "Who is the lead singer of the band Queen?",
+                options: ["Freddie Mercury", "David Bowie", "Mick Jagger", "Bono"],
+                answer: "Freddie Mercury",
+            },
+            {
+                id: 3,
+                question: "In which year did Elvis Presley pass away?",
+                options: ["1973", "1977", "1980", "1983"],
+                answer: "1977",
+            },
+            {
+                id: 4,
+                question: "Which female artist released the album '21'?",
+                options: ["Adele", "Beyoncé", "Taylor Swift", "Rihanna"],
+                answer: "Adele",
+            },
+            {
+                id: 5,
+                question: "What is the best-selling album of all time?",
+                options: ["Thriller by Michael Jackson", "Back in Black by AC/DC", "The Dark Side of the Moon by Pink Floyd", "Abbey Road by The Beatles"],
+                answer: "Thriller by Michael Jackson",
+            },
+            {
+                id: 6,
+                question: "Which rapper is also known as Slim Shady?",
+                options: ["Jay-Z", "Eminem", "Kanye West", "Drake"],
+                answer: "Eminem",
+            },
+            {
+                id: 7,
+                question: "Who wrote the song 'Like a Rolling Stone'?",
+                options: ["Bob Dylan", "The Rolling Stones", "Bruce Springsteen", "Elton John"],
+                answer: "Bob Dylan",
+            },
+            {
+                id: 8,
+                question: "What is the name of Beyoncé's fanbase?",
+                options: ["Swifties", "Little Monsters", "BeyHive", "Directioners"],
+                answer: "BeyHive",
+            },
+            {
+                id: 9,
+                question: "Which band is known for their hit song 'Stairway to Heaven'?",
+                options: ["The Rolling Stones", "Led Zeppelin", "The Who", "Queen"],
+                answer: "Led Zeppelin",
+            },
+        ],
     },
     {
         id: 6,
-        title: "Test7",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Technology Quiz",
+        description: "Test your knowledge of technology and innovations.",
+        questions: [
+            {
+                id: 0,
+                question: "Who is the co-founder of Microsoft?",
+                options: ["Steve Jobs", "Bill Gates", "Elon Musk", "Mark Zuckerberg"],
+                answer: "Bill Gates",
+            },
+            {
+                id: 1,
+                question: "In which year was the first iPhone released?",
+                options: ["2005", "2007", "2010", "2012"],
+                answer: "2007",
+            },
+            {
+                id: 2,
+                question: "Which company developed the Android operating system?",
+                options: ["Microsoft", "Apple", "Google", "Samsung"],
+                answer: "Google",
+            },
+            {
+                id: 3,
+                question: "What does CPU stand for?",
+                options: ["Central Processing Unit", "Computer Processing Unit", "Central Processor Unit", "Computer Processor Unit"],
+                answer: "Central Processing Unit",
+            },
+            {
+                id: 4,
+                question: "Which social media platform was launched in 2004?",
+                options: ["Instagram", "Facebook", "Twitter", "Snapchat"],
+                answer: "Facebook",
+            },
+            {
+                id: 5,
+                question: "What does the acronym 'URL' stand for?",
+                options: ["Uniform Resource Locator", "Universal Resource Locator", "Uniform Retrieval Locator", "Universal Retrieval Locator"],
+                answer: "Uniform Resource Locator",
+            },
+            {
+                id: 6,
+                question: "Which programming language was created by James Gosling and Mike Sheridan?",
+                options: ["Java", "Python", "C++", "Ruby"],
+                answer: "Java",
+            },
+            {
+                id: 7,
+                question: "What is the largest tech company by market capitalization?",
+                options: ["Apple", "Microsoft", "Amazon", "Google"],
+                answer: "Apple",
+            },
+            {
+                id: 8,
+                question: "Which technology is used for wireless communication?",
+                options: ["Bluetooth", "NFC", "Ethernet", "HDMI"],
+                answer: "Bluetooth",
+            },
+            {
+                id: 9,
+                question: "In computing, what does the acronym 'HTML' stand for?",
+                options: ["HyperText Markup Language", "High-Level Text Management Language", "Hyperlink and Text Markup Language", "High-Level Text Markup Language"],
+                answer: "HyperText Markup Language",
+            },
+        ],
     },
     {
         id: 7,
-        title: "Test8",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
+        title: "Video Game Trivia",
+        description: "Test your knowledge of video games and gaming history.",
+        questions: [
+            {
+                id: 0,
+                question: "What is the best-selling video game of all time?",
+                options: ["Minecraft", "Tetris", "Grand Theft Auto V", "Super Mario Bros."],
+                answer: "Minecraft",
+            },
+            {
+                id: 1,
+                question: "Who is the main protagonist in 'The Legend of Zelda' series?",
+                options: ["Link", "Zelda", "Ganondorf", "Navi"],
+                answer: "Link",
+            },
+            {
+                id: 2,
+                question: "Which company developed the 'Final Fantasy' series?",
+                options: ["Square Enix", "Nintendo", "Capcom", "Blizzard Entertainment"],
+                answer: "Square Enix",
+            },
+            {
+                id: 3,
+                question: "In which year was the first 'Super Mario Bros.' game released?",
+                options: ["1983", "1985", "1990", "1993"],
+                answer: "1985",
+            },
+            {
+                id: 4,
+                question: "What is the name of the protagonist in the 'Assassin's Creed' series?",
+                options: ["Ezio Auditore", "Altair Ibn-La'Ahad", "Connor Kenway", "Bayek of Siwa"],
+                answer: "Ezio Auditore",
+            },
+            {
+                id: 5,
+                question: "Which popular video game franchise features a character named Master Chief?",
+                options: ["Halo", "Call of Duty", "Gears of War", "Destiny"],
+                answer: "Halo",
+            },
+            {
+                id: 6,
+                question: "What is the name of the virtual world in 'The Matrix' series?",
+                options: ["Avalon", "Zion", "Rapture", "The Matrix"],
+                answer: "The Matrix",
+            },
+            {
+                id: 7,
+                question: "Which game is often credited with popularizing battle royale gameplay?",
+                options: ["Fortnite", "PlayerUnknown's Battlegrounds (PUBG)", "Apex Legends", "Call of Duty: Warzone"],
+                answer: "PlayerUnknown's Battlegrounds (PUBG)",
+            },
+            {
+                id: 8,
+                question: "In which year was the first PlayStation console released?",
+                options: ["1990", "1994", "1998", "2000"],
+                answer: "1994",
+            },
+            {
+                id: 9,
+                question: "What is the name of the protagonist in 'The Witcher' series?",
+                options: ["Geralt of Rivia", "Ciri", "Yennefer", "Triss Merigold"],
+                answer: "Geralt of Rivia",
+            },
+        ],
     },
 ];
 export default testsData;
