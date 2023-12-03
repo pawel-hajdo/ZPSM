@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from "react";
+import React, {useEffect} from "react";
 import Home from "./components/screens/Home";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -8,6 +8,7 @@ import TestPage from "./components/screens/TestPage";
 import ResultsScreen from "./components/screens/ResultsScreen";
 import testsData from "./data/TestsData";
 import TestEndScreen from "./components/screens/TestEndScreen";
+import SplashScreen from 'react-native-splash-screen'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,6 +41,10 @@ function TestStack({route}){
     );
 }
 function App() {
+
+    useEffect(() => {
+        SplashScreen.hide();
+    }, []);
     return (
         <NavigationContainer>
             <Drawer.Navigator
