@@ -1,13 +1,67 @@
 import 'react-native-gesture-handler';
-import React from "react";
-import Home from "./components/Home";
+import React, {useEffect, useState} from "react";
+import Home from "./components/screens/Home";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import TestPage from "./components/TestPage";
-import ResultsScreen from "./components/ResultsScreen";
+import { createStackNavigator } from '@react-navigation/stack';
+import TestPage from "./components/screens/TestPage";
+import ResultsScreen from "./components/screens/ResultsScreen";
+import testsData from "./data/TestsData";
+import TestEndScreen from "./components/screens/TestEndScreen";
+import SplashScreen from 'react-native-splash-screen'
+import WelcomeScreen from "./components/screens/WelcomeScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const TestsData = testsData;
+
+function HomeStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="WelcomeScreen"
+        >
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="Home Page" component={Home}/>
+        </Stack.Navigator>
+    );
+}
+function TestStack({route}){
+    const {test} = route.params;
+
+    return (
+        <Stack.Navigator
+        screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                key={`${test.id}_Page`}
+                name={`${test.title}_Page`}
+                component={TestPage}
+                initialParams={{
+                    testId: test.id,
+                    testTitle: test.title,
+                    testDesc: test.description,
+                }}
+            />
+            <Stack.Screen
+                key={`TestEndScreen_${test.id}`}
+                name="TestEndScreen"
+                component={TestEndScreen}
+                //options={{ title: "Test End" }}
+                initialParams={{points: 0}}
+            />
+        </Stack.Navigator>
+    );
+}
 function App() {
+
+    useEffect(() => {
+        setTimeout(()=>{
+            SplashScreen.hide();
+        },1000)
+
+    }, []);
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -19,70 +73,27 @@ function App() {
                     headerTintColor: '#fff',
 
                 }}>
-                <Drawer.Screen name="Home" component={Home} />
+                <Drawer.Screen name="Home" component={HomeStack} />
                 <Drawer.Screen
                     name="ResultsScreen"
                     component={ResultsScreen}
                     options={{ title: "Results" }}
                 />
-                {Tests.map((test) => (
-                    <Drawer.Screen
-                        key={test.id}
-                        name={test.title}
-                        component={TestPage}
-                        initialParams={{
-                            testId: test.id,
-                            testTitle: test.title,
-                            testDesc: test.description,
-                        }}
-                    />
-                ))}
+                <Drawer.Group>
+                    {TestsData.map((test) => (
+                        <Drawer.Screen
+                            key={test.id}
+                            name={test.title}
+                            component={TestStack}
+                            initialParams={{
+                                test: test,
+                            }}
+                        />
+                    ))}
+                </Drawer.Group>
             </Drawer.Navigator>
         </NavigationContainer>
     );
 }
-
-const Tests = [
-    {
-        id: 1,
-        title: "Test1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 2,
-        title: "Test2",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 3,
-        title: "Test3",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 4,
-        title: "Test4",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 5,
-        title: "Test5",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 6,
-        title: "Test6",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 7,
-        title: "Test7",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-    {
-        id: 8,
-        title: "Test8",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer gravida eros eros, ut eleifend dui ullamcorper vel. Nullam eget neque eu eros efficitur ullamcorper. Donec augue neque, accumsan ut facilisis vehicula, volutpat quis odio. Donec nec tincidunt nibh. Sed molestie cursus tellus, in ultricies metus varius dignissim. Sed a tincidunt metus."
-    },
-]
 
 export default App;
