@@ -1,9 +1,17 @@
 import React from "react";
-import {FlatList, StyleSheet, Text, View} from "react-native";
+import {FlatList, RefreshControl, StyleSheet, Text, View} from "react-native";
 import results from "../../data/Results";
 
 const resultsData = results;
 const ResultsScreen = () => {
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 2000);
+    }, []);
 
     const renderItem = ({ item }) => {
         return (
@@ -27,7 +35,9 @@ const ResultsScreen = () => {
             <FlatList
                 data={resultsData}
                 keyExtractor={(item) => {item.id.toString()}}
-                renderItem={renderItem}/>
+                renderItem={renderItem}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            />
         </View>
     );
 };
