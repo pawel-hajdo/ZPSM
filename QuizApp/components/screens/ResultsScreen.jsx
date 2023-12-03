@@ -34,7 +34,7 @@ const ResultsScreen = () => {
             </View>
             <FlatList
                 data={resultsData}
-                keyExtractor={(item) => {item.id.toString()}}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />

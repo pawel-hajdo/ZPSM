@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Home from "./components/screens/Home";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -9,11 +9,24 @@ import ResultsScreen from "./components/screens/ResultsScreen";
 import testsData from "./data/TestsData";
 import TestEndScreen from "./components/screens/TestEndScreen";
 import SplashScreen from 'react-native-splash-screen'
+import WelcomeScreen from "./components/screens/WelcomeScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const TestsData = testsData;
 
+function HomeStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="WelcomeScreen"
+        >
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="Home Page" component={Home}/>
+        </Stack.Navigator>
+    );
+}
 function TestStack({route}){
     const {test} = route.params;
 
@@ -43,8 +56,12 @@ function TestStack({route}){
 function App() {
 
     useEffect(() => {
-        SplashScreen.hide();
+        setTimeout(()=>{
+            SplashScreen.hide();
+        },1000)
+
     }, []);
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -56,7 +73,7 @@ function App() {
                     headerTintColor: '#fff',
 
                 }}>
-                <Drawer.Screen name="Home" component={Home} />
+                <Drawer.Screen name="Home" component={HomeStack} />
                 <Drawer.Screen
                     name="ResultsScreen"
                     component={ResultsScreen}
