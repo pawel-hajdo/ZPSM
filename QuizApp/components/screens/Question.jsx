@@ -6,9 +6,9 @@ import CustomButton from "../shared/CustomButton";
 const Question = (params) => {
 
     const [progress, setProgress] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(params.duration);
     const [selectedOption, setSelectedOption] = useState(null);
-
+    const [selectedIndex, setIndex] = useState(-1);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -26,20 +26,28 @@ const Question = (params) => {
         return () => clearInterval(interval);
     }, [progress, timeLeft]);
 
-    const handleOptionPress = (option) => {
-        if (option === params.answer) {
+    useEffect(() => {
+        setProgress(0);
+        setTimeLeft(30);
+        setSelectedOption(null);
+        setIndex(-1);
+    }, [params.id]);
+
+    const handleOptionPress = (option, index) => {
+        setIndex(index);
+        if (option.isCorrect) {
             console.log("correct answer");
-            setSelectedOption({ [option]: "correct" });
+            setSelectedOption("correct");
             params.onUpdatePoints((prevPoints) => prevPoints + 1);
         } else {
             console.log("incorrect answer");
-            setSelectedOption({ [option]: "incorrect" });
+            setSelectedOption("incorrect");
         }
     };
 
-    const getButtonStyle = (option) => {
-        if (selectedOption && selectedOption[option]) {
-            return selectedOption[option] === "correct"
+    const getButtonStyle = (index) => {
+        if (selectedIndex === index) {
+            return selectedOption === "correct"
                 ? styles.correctButton
                 : styles.incorrectButton;
         }
@@ -49,16 +57,20 @@ const Question = (params) => {
     return (
         <View style={styles.container}>
             <View style={styles.infoContainer}>
-                <Text style={styles.questionInfo}>Question {params.id} of 10</Text>
+                <Text style={styles.questionInfo}>Question {params.id} of {params.testLength}</Text>
                 <Text style={styles.questionInfo}>Time Left: {timeLeft} sec</Text>
             </View>
             <Progress.Bar progress={progress} width={null} animated={true} style = {{margin: 8}}/>
             <Text style={styles.questionText}>{params.question}</Text>
-            <Text style={styles.questionDescription}>{params.questionDescription}</Text>
             <View style={styles.optionsContainer}>
                 {params.options.map((option, index) => (
-                    <TouchableOpacity key = {index} style={getButtonStyle(option)} onPress={()=>handleOptionPress(option)} disabled={selectedOption !== null}>
-                        <Text style={styles.buttonText}>{option}</Text>
+                    <TouchableOpacity
+                        key = {index}
+                        style={getButtonStyle(index)}
+                        onPress={()=>handleOptionPress(option, index)}
+                        disabled={selectedOption !== null}
+                     >
+                        <Text style={styles.buttonText}>{option.content}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
@@ -79,11 +91,12 @@ const styles = StyleSheet.create({
     questionInfo: {
         marginBottom: 8,
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: "Poppins-Bold"
     },
     questionText: {
         margin: 8,
-        fontSize: 20,
+        fontSize: 16,
+        fontFamily: "Roboto-Regular"
     },
     questionDescription: {
         marginHorizontal: 8,
@@ -128,6 +141,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: "center",
         padding: 25,
+        fontFamily: "Roboto-Regular"
     },
 })
 export default Question;

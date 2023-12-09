@@ -3,30 +3,28 @@ import {ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View} from "r
 import QuestionCardView from "../shared/QuestionCardView";
 import CustomButton from "../shared/CustomButton";
 import {useNavigation} from "@react-navigation/native";
-import testsData from "../../data/TestsData";
 
-const TestsData = testsData;
-const Home = ({navigation}) => {
-
-    const handleCheckResults = () => {
+const Home = ({navigation, testsData}) => {
+        const handleCheckResults = () => {
         navigation.navigate("ResultsScreen");
     };
-    const handleNavigateToTestPage = (testTitle, testDesc) => {
+    const handleNavigateToTestPage = (testId, testTitle, testDesc, numberOfTasks) => {
         navigation.navigate(testTitle, {
+            testId: testId,
             testTitle: testTitle,
-            testDesc: testDesc
+            testDesc: testDesc,
+            numberOfTasks: numberOfTasks,
         });
     };
-
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                {TestsData.map((test) =>
+                {testsData.map((test) =>
                     <TouchableOpacity
                         key = {test.id}
-                        onPress={() => handleNavigateToTestPage(test.title, test.description)}
+                        onPress={() => handleNavigateToTestPage(test.id, test.name, test.description, test.numberOfTasks)}
                     >
-                        <QuestionCardView title = {test.title} description = {test.description}/>
+                        <QuestionCardView title = {test.name} description = {test.description}/>
                     </TouchableOpacity>
                 )}
             </ScrollView>

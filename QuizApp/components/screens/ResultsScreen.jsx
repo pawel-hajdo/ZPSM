@@ -1,16 +1,30 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FlatList, RefreshControl, StyleSheet, Text, View} from "react-native";
-import results from "../../data/Results";
 
-const resultsData = results;
 const ResultsScreen = () => {
     const [refreshing, setRefreshing] = React.useState(false);
+    const [resultsData, setData] = useState([]);
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
+            getResults();
             setRefreshing(false);
         }, 2000);
+    }, []);
+
+    const getResults = async () => {
+        try{
+            const response = await fetch('https://tgryl.pl/quiz/results?last=20');
+            const json = await response.json();
+            setData(json)
+        }catch (error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getResults();
     }, []);
 
     const renderItem = ({ item }) => {
@@ -19,7 +33,7 @@ const ResultsScreen = () => {
                 <Text style={styles.cell}>{item.nick}</Text>
                 <Text style={styles.cell}>{item.score}/{item.total}</Text>
                 <Text style={styles.cell}>{item.type}</Text>
-                <Text style={styles.cell}>{item.date}</Text>
+                <Text style={styles.cell}>{item.createdOn}</Text>
             </View>
         );
     };
@@ -61,7 +75,8 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 15,
         color: "white",
-        padding: 5
+        padding: 5,
+        fontFamily: "Poppins-Bold"
     },
     row: {
         flexDirection: 'row',
@@ -77,7 +92,8 @@ const styles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: "left",
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: "Roboto-Regular"
     }
 });
 export default ResultsScreen;

@@ -40,12 +40,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: "Poppins-Bold"
     },
     description: {
         fontSize: 14,
         color: "#666",
         marginTop: 8,
+        fontFamily: "Roboto-Regular"
     },
 });
 export default QuestionCardView;
