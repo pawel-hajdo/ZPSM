@@ -33,6 +33,8 @@ function App() {
             setTests(json);
         }catch (error){
             console.log(error);
+        }finally {
+            console.log(testsData)
         }
     }
 
@@ -61,6 +63,7 @@ function App() {
                         testId: test.id,
                         testTitle: test.title,
                         testDesc: test.description,
+                        numberOfTasks: test.numberOfTasks
                     }}
                 />
                 <Stack.Screen

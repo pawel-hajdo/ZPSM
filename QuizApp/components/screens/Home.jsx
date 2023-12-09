@@ -5,25 +5,24 @@ import CustomButton from "../shared/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 
 const Home = ({navigation, testsData}) => {
-
         const handleCheckResults = () => {
         navigation.navigate("ResultsScreen");
     };
-    const handleNavigateToTestPage = (testId, testTitle, testDesc) => {
+    const handleNavigateToTestPage = (testId, testTitle, testDesc, numberOfTasks) => {
         navigation.navigate(testTitle, {
             testId: testId,
             testTitle: testTitle,
-            testDesc: testDesc
+            testDesc: testDesc,
+            numberOfTasks: numberOfTasks,
         });
     };
-
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 {testsData.map((test) =>
                     <TouchableOpacity
                         key = {test.id}
-                        onPress={() => handleNavigateToTestPage(test.id, test.name, test.description)}
+                        onPress={() => handleNavigateToTestPage(test.id, test.name, test.description, test.numberOfTasks)}
                     >
                         <QuestionCardView title = {test.name} description = {test.description}/>
                     </TouchableOpacity>
