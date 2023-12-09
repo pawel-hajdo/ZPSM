@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 15,
         color: "white",
-        padding: 5
+        padding: 5,
+        fontFamily: "Poppins-Bold"
     },
     row: {
         flexDirection: 'row',
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: "left",
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: "Roboto-Regular"
     }
 });
 export default ResultsScreen;

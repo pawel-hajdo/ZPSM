@@ -91,11 +91,12 @@ const styles = StyleSheet.create({
     questionInfo: {
         marginBottom: 8,
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: "Poppins-Bold"
     },
     questionText: {
         margin: 8,
-        fontSize: 20,
+        fontSize: 16,
+        fontFamily: "Roboto-Regular"
     },
     questionDescription: {
         marginHorizontal: 8,
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: "center",
         padding: 25,
+        fontFamily: "Roboto-Regular"
     },
 })
 export default Question;
