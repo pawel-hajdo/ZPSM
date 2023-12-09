@@ -8,13 +8,14 @@ const ResultsScreen = () => {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
+            getResults();
             setRefreshing(false);
         }, 2000);
     }, []);
 
     const getResults = async () => {
         try{
-            const response = await fetch('https://tgryl.pl/quiz/results');
+            const response = await fetch('https://tgryl.pl/quiz/results?last=20');
             const json = await response.json();
             setData(json)
         }catch (error){
