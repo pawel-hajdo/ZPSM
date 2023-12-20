@@ -94,6 +94,15 @@ function App() {
                     component={ResultsScreen}
                     options={{ title: "Results" }}
                 />
+                {testsData.length > 0 && (
+                    <Drawer.Screen
+                        name="Random test"
+                        component={TestStack}
+                        initialParams={{
+                            test: testsData[Math.floor(Math.random() * testsData.length)],
+                        }}
+                    />
+                )}
                 <Drawer.Group>
                     {testsData.map((test) => (
                         <Drawer.Screen
