@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useState} from "react";
 import Home from "./components/screens/Home";
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import TestPage from "./components/screens/TestPage";
 import ResultsScreen from "./components/screens/ResultsScreen";
@@ -77,6 +77,18 @@ function App() {
         );
     }
 
+    function CustomDrawerContent(props) {
+        return (
+            <DrawerContentScrollView {...props}>
+                <DrawerItemList {...props} />
+                <DrawerItem
+                    label="Download new tests"
+                    onPress={getTests}
+                />
+            </DrawerContentScrollView>
+        );
+    }
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -87,7 +99,9 @@ function App() {
                     },
                     headerTintColor: '#fff',
 
-                }}>
+                }}
+                drawerContent={props => <CustomDrawerContent {...props} />}
+            >
                 <Drawer.Screen name="Home" component={HomeStack} />
                 <Drawer.Screen
                     name="ResultsScreen"
