@@ -10,6 +10,7 @@ import TestEndScreen from "./components/screens/TestEndScreen";
 import SplashScreen from 'react-native-splash-screen'
 import WelcomeScreen from "./components/screens/WelcomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import _ from 'lodash';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -30,7 +31,8 @@ function App() {
         try{
             const response = await fetch('https://tgryl.pl/quiz/tests');
             const json = await response.json();
-            setTests(json);
+            const shuffledTests = _.shuffle(json);
+            setTests(shuffledTests);
         }catch (error){
             console.log(error);
         }finally {

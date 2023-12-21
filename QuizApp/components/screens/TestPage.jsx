@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {ActivityIndicator, View} from "react-native";
 import Question from "./Question";
 import TestEndScreen from "./TestEndScreen";
+import _ from "lodash";
 
 const TestPage = ({route, navigation}) => {
 
@@ -15,7 +16,14 @@ const TestPage = ({route, navigation}) => {
         try{
             const response = await fetch(`https://tgryl.pl/quiz/test/${testId}`);
             const json = await response.json();
-            setTest(json)
+            const shuffledAnswers = json.tasks.map(task => ({
+                ...task,
+                answers: _.shuffle(task.answers),
+            }));
+
+            const shuffledTasks = _.shuffle(shuffledAnswers);
+
+            setTest({ ...json, tasks: shuffledTasks });
         }catch (error){
             console.log(error);
         } finally {
