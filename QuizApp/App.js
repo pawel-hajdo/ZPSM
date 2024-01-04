@@ -11,6 +11,7 @@ import SplashScreen from 'react-native-splash-screen'
 import WelcomeScreen from "./components/screens/WelcomeScreen";
 import _ from 'lodash';
 import {createTables} from "./components/LocalDatabaseManager";
+import {getTestsFromApi} from "./components/ApiManager";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -18,24 +19,22 @@ const Drawer = createDrawerNavigator();
 function App() {
 
     const [testsData, setTests] = useState([]);
+    const [haveInternetConnection, setInternetConnection] = useState(true);
 
     useEffect(() => {
-        createTables();
+        //createTables();
         getTests().then(()=>{SplashScreen.hide();});
     }, []);
 
 
-
     const getTests = async () => {
-        try{
-            const response = await fetch('https://tgryl.pl/quiz/tests');
-            const json = await response.json();
-            const shuffledTests = _.shuffle(json);
-            setTests(shuffledTests);
-        }catch (error){
-            console.log(error);
-        }finally {
-            console.log(testsData)
+        if(haveInternetConnection){
+            //setTests(getTestsFromApi());
+            await getTestsFromApi()
+                .then(_.shuffle)
+                .then(setTests);
+        }else{
+            //getTestFomDB().then(setTests);
         }
     }
 

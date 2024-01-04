@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FlatList, RefreshControl, StyleSheet, Text, View} from "react-native";
+import {getResultsFromApi} from "../ApiManager";
 
 const ResultsScreen = () => {
     const [refreshing, setRefreshing] = React.useState(false);
@@ -8,23 +9,14 @@ const ResultsScreen = () => {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
-            getResults();
+            getResultsFromApi().then(setData);
             setRefreshing(false);
         }, 2000);
     }, []);
 
-    const getResults = async () => {
-        try{
-            const response = await fetch('https://tgryl.pl/quiz/results?last=20');
-            const json = await response.json();
-            setData(json)
-        }catch (error){
-            console.log(error);
-        }
-    }
 
     useEffect(() => {
-        getResults();
+        getResultsFromApi().then(setData);
     }, []);
 
     const renderItem = ({ item }) => {

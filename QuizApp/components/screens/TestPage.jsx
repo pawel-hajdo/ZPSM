@@ -3,6 +3,7 @@ import {ActivityIndicator, View} from "react-native";
 import Question from "./Question";
 import TestEndScreen from "./TestEndScreen";
 import _ from "lodash";
+import {getTestDetailsFromApi, sendResultsToApi} from "../ApiManager";
 
 const TestPage = ({route, navigation}) => {
 
@@ -11,36 +12,39 @@ const TestPage = ({route, navigation}) => {
     const [test, setTest] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [points, setPoints] = useState(0);
+    const [haveInternetConnection, setInternetConnection] = useState(true);
 
-    const getTestDetails = async () => {
-        try{
-            const response = await fetch(`https://tgryl.pl/quiz/test/${testId}`);
-            const json = await response.json();
-            const shuffledAnswers = json.tasks.map(task => ({
-                ...task,
-                answers: _.shuffle(task.answers),
-            }));
 
-            const shuffledTasks = _.shuffle(shuffledAnswers);
+    useEffect(() => {
+        getTestDetails(testId).then(() => {setLoading(false)});
+    }, []);
 
-            setTest({ ...json, tasks: shuffledTasks });
-        }catch (error){
-            console.log(error);
-        } finally {
-            setLoading(false);
+    const getTestDetails = async (id) => {
+        if(haveInternetConnection){
+            await getTestDetailsFromApi(id)
+                .then(shuffleTest)
+        }else{
+            //getTestDetailsFomDB().then(setTests);
         }
     }
 
-    useEffect(() => {
-        getTestDetails();
-    }, []);
+    const shuffleTest = (json) => {
+        const shuffledAnswers = json.tasks.map(task => ({
+            ...task,
+            answers: _.shuffle(task.answers),
+        }));
 
+        const shuffledTasks = _.shuffle(shuffledAnswers);
+
+        setTest({ ...json, tasks: shuffledTasks });
+    }
     const handleNextQuestion = () => {
         if (currentQuestionIndex < test.tasks.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         } else {
-            sendResults();
-            navigation.replace("TestEndScreen", {points: points});
+            sendResultsToApi(points, numberOfTasks, test.tags[0])
+                .then(() => navigation.replace("TestEndScreen", {points: points}));
+
             console.log(points)
         }
     };
@@ -49,21 +53,6 @@ const TestPage = ({route, navigation}) => {
         setPoints(newPoints);
     };
 
-    const sendResults = async () =>{
-        fetch('https://tgryl.pl/quiz/result', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "nick": 'test123',
-                "score": points,
-                "total": numberOfTasks,
-                "type": test.tags[0],
-            }),
-        }).then(r => console.log(r.status));
-    }
     return (
         <View>
             {isLoading ? (
