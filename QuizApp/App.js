@@ -1,17 +1,17 @@
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from "react";
 import Home from "./components/screens/Home";
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import TestPage from "./components/screens/TestPage";
 import ResultsScreen from "./components/screens/ResultsScreen";
 import TestEndScreen from "./components/screens/TestEndScreen";
 import SplashScreen from 'react-native-splash-screen'
 import WelcomeScreen from "./components/screens/WelcomeScreen";
 import _ from 'lodash';
-import {createTables} from "./components/LocalDatabaseManager";
 import {getTestsFromApi} from "./components/ApiManager";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,22 +19,68 @@ const Drawer = createDrawerNavigator();
 function App() {
 
     const [testsData, setTests] = useState([]);
-    const [haveInternetConnection, setInternetConnection] = useState(true);
+    const [haveInternetConnection, setInternetConnection] = useState(false);
 
     useEffect(() => {
-        //createTables();
-        getTests().then(()=>{SplashScreen.hide();});
+        // const test = async () => {
+        //     await getTests().then(() => console.log("aa",testsData));
+        //     //console.log(testsData);
+        // }
+        // test();
+        getTests()
+            .then(()=>{SplashScreen.hide()})
     }, []);
 
 
+
     const getTests = async () => {
-        if(haveInternetConnection){
-            //setTests(getTestsFromApi());
-            await getTestsFromApi()
-                .then(_.shuffle)
-                .then(setTests);
-        }else{
-            //getTestFomDB().then(setTests);
+        if (haveInternetConnection) {
+            try {
+                const jsonTests = await getTestsFromApi();
+                const shuffledTests = _.shuffle(jsonTests);
+                setTests(shuffledTests);
+                await saveTestsToAsyncStorage(JSON.stringify(shuffledTests));
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            try{
+                // const jsonTests = await getTestsFromAsyncStorage();
+                // const shuffledTests = _.shuffle(jsonTests);
+                // console.log(shuffledTests);
+                // setTests(shuffledTests);
+
+                await getTestsFromAsyncStorage()
+                    .then(console.log)
+                    .then(_.shuffle)
+                    .then(setTests)
+                    .then(() => console.log("hook",testsData));
+
+                // const tests = await getTestsFromAsyncStorage();
+                // console.log("2",tests);
+                // setTests(tests);
+                console.log("hook2",testsData);
+            }catch (error){
+                console.log(error);
+            }
+        }
+    }
+
+    const saveTestsToAsyncStorage = async (jsonTests) => {
+        await AsyncStorage.setItem("Tests", JSON.stringify(jsonTests));
+    }
+
+    const saveTestsDetailsToAsyncStorage = async (testId, jsonTestDetails) => {
+        await AsyncStorage.setItem(testId, jsonTestDetails);
+    }
+
+    const getTestsFromAsyncStorage = async () => {
+        try {
+            const testsString = await AsyncStorage.getItem("Tests");
+            console.log(testsString);
+            return await JSON.parse(testsString);
+        } catch (error) {
+            console.error(error);
         }
     }
 
