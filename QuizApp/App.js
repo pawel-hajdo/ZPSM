@@ -9,8 +9,8 @@ import ResultsScreen from "./components/screens/ResultsScreen";
 import TestEndScreen from "./components/screens/TestEndScreen";
 import SplashScreen from 'react-native-splash-screen'
 import WelcomeScreen from "./components/screens/WelcomeScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import _ from 'lodash';
+import {createTables} from "./components/LocalDatabaseManager";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -20,12 +20,11 @@ function App() {
     const [testsData, setTests] = useState([]);
 
     useEffect(() => {
-        getTests();
-        setTimeout(()=>{
-            SplashScreen.hide();
-        },1000)
-
+        createTables();
+        getTests().then(()=>{SplashScreen.hide();});
     }, []);
+
+
 
     const getTests = async () => {
         try{
