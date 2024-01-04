@@ -9,7 +9,8 @@ const ResultsScreen = () => {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
-            getResultsFromApi().then(setData);
+            getResultsFromApi()
+                .then(setData);
             setRefreshing(false);
         }, 2000);
     }, []);
@@ -39,7 +40,7 @@ const ResultsScreen = () => {
                 <Text style={styles.heading}>Date</Text>
             </View>
             <FlatList
-                data={resultsData}
+                data={resultsData.reverse()}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

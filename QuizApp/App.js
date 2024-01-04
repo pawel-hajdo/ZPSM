@@ -12,6 +12,7 @@ import WelcomeScreen from "./components/screens/WelcomeScreen";
 import _ from 'lodash';
 import {getTestsFromApi} from "./components/ApiManager";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fetch as NetInfoFetch} from "@react-native-community/netinfo";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,7 +20,7 @@ const Drawer = createDrawerNavigator();
 function App() {
 
     const [testsData, setTests] = useState([]);
-    const [haveInternetConnection, setInternetConnection] = useState(false);
+    //const [haveInternetConnection, setInternetConnection] = useState(true);
 
     useEffect(() => {
         // const test = async () => {
@@ -34,7 +35,9 @@ function App() {
 
 
     const getTests = async () => {
-        if (haveInternetConnection) {
+        const state = await NetInfoFetch();
+        //if (haveInternetConnection){
+        if (state.isConnected) {
             try {
                 const jsonTests = await getTestsFromApi();
                 const shuffledTests = _.shuffle(jsonTests);
